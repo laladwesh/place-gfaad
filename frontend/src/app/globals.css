@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 220 23% 96%;
+  --foreground: 224 44% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 44% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 44% 12%;
+  --primary: 246 79% 57%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 20% 92%;
+  --secondary-foreground: 224 44% 14%;
+  --muted: 221 22% 91%;
+  --muted-foreground: 222 13% 41%;
+  --accent: 244 70% 59%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 80% 56%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 220 18% 86%;
+  --input: 220 18% 86%;
+  --ring: 246 79% 57%;
+  --radius: 0.85rem;
+
+  --color-ink: #0f172a;
+  --color-mist: #eef2f7;
+  --color-brand: #4f46e5;
+  --color-signal: #6366f1;
+  --color-glow: #22c55e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-display), ui-sans-serif, sans-serif;
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+body {
+  background:
+    radial-gradient(circle at 6% 12%, rgba(99, 102, 241, 0.13), transparent 28%),
+    radial-gradient(circle at 82% 7%, rgba(79, 70, 229, 0.1), transparent 32%),
+    linear-gradient(180deg, #f5f7fb 0%, #f2f4f8 100%);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.title-accent {
+  background: linear-gradient(90deg, #4f46e5 0%, #6366f1 55%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-chart-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.22) 1px, transparent 1px);
+  background-size: 28px 26px;
+}
