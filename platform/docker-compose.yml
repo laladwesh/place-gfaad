@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  backend:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    env_file:
+      - ../.env
+    environment:
+      - PORT=4000
+    ports:
+      - "4000:4000"
+    depends_on:
+      - redis
+    volumes:
+      - deployments:/var/lib/mini-paas/deployments
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  worker:
+    build:
+      context: ..
+      dockerfile: worker/Dockerfile
+    env_file:
+      - ../.env
+    depends_on:
+      - redis
+      - backend
+    volumes:
+      - deployments:/var/lib/mini-paas/deployments
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/nginx/sites-available:/etc/nginx/sites-available
+      - /etc/nginx/sites-enabled:/etc/nginx/sites-enabled
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: frontend/Dockerfile
+    env_file:
+      - ../.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  redis-data:
+  deployments:
