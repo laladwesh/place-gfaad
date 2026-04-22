@@ -1,0 +1,26 @@
+{
+  "name": "mini-paas-platform",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "worker",
+    "nginx",
+    "utils"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace frontend\" \"npm run dev --workspace backend\" \"npm run dev --workspace worker\"",
+    "build": "npm run build --workspace utils && npm run build --workspace nginx && npm run build --workspace backend && npm run build --workspace worker && npm run build --workspace frontend",
+    "start": "concurrently \"npm run start --workspace frontend\" \"npm run start --workspace backend\"",
+    "lint": "npm run lint --workspaces --if-present",
+    "deploy:oracle": "powershell -NoProfile -ExecutionPolicy Bypass -File ./platform/deploy-oracle.ps1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20.11.1"
+  }
+}
