@@ -1,0 +1,17 @@
+node_modules
+dist
+.next
+.turbo
+.env
+.env.local
+coverage
+tmp
+*.log
+*.tsbuildinfo
+
+# Deployment and runtime artifacts
+deployments
+*.pid
+
+
+.claude
