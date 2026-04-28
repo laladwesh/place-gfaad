@@ -9,9 +9,9 @@ COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
 RUN npm install
-RUN cd utils && npx tsc -p tsconfig.json
-RUN cd nginx && npx tsc -p tsconfig.json
-RUN cd worker && npx tsc -p tsconfig.json
+RUN ./node_modules/.bin/tsc -p utils/tsconfig.json
+RUN ./node_modules/.bin/tsc -p nginx/tsconfig.json
+RUN ./node_modules/.bin/tsc -p worker/tsconfig.json
 
 FROM node:20-alpine AS runtime
 WORKDIR /app

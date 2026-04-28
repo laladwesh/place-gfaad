@@ -9,7 +9,7 @@ COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
 RUN npm install
-RUN cd frontend && npx next build
+RUN ./node_modules/.bin/next build frontend
 
 FROM node:20-alpine AS runtime
 WORKDIR /app
