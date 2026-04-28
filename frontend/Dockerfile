@@ -9,7 +9,7 @@ COPY backend ./backend
 COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
-RUN npm install
+RUN npm install # frontend-builder
 RUN ./node_modules/typescript/bin/tsc -p utils/tsconfig.json
 RUN ./node_modules/next/dist/bin/next build
 
