@@ -9,7 +9,8 @@ COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
 RUN npm install
-RUN ./node_modules/.bin/next build frontend
+RUN ./node_modules/typescript/bin/tsc -p utils/tsconfig.json
+RUN ./node_modules/next/dist/bin/next build
 
 FROM node:20-alpine AS runtime
 WORKDIR /app

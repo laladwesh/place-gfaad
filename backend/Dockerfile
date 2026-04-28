@@ -9,8 +9,8 @@ COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
 RUN npm install
-RUN ./node_modules/.bin/tsc -p utils/tsconfig.json
-RUN ./node_modules/.bin/tsc -p backend/tsconfig.json
+RUN ./node_modules/typescript/bin/tsc -p utils/tsconfig.json
+RUN ./node_modules/typescript/bin/tsc -p backend/tsconfig.json
 
 FROM node:20-alpine AS runtime
 WORKDIR /app
