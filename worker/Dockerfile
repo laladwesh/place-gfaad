@@ -9,6 +9,7 @@ COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
 RUN npm install
+ENV PATH=/app/node_modules/.bin:$PATH
 RUN npm run build --workspace utils
 RUN npm run build --workspace nginx
 RUN npm run build --workspace worker
