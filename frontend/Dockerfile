@@ -4,6 +4,10 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig.base.json ./
 COPY frontend ./frontend
+COPY backend ./backend
+COPY worker ./worker
+COPY nginx ./nginx
+COPY utils ./utils
 RUN npm ci
 RUN npm run build --workspace frontend
 
