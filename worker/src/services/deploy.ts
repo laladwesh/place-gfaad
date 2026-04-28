@@ -273,7 +273,7 @@ export async function processDeploymentJob(jobData: DeployJobData): Promise<void
 
     await checkCancellation(deployment.id, "post-build");
 
-    const assignedPort = await getPort({ port: portNumbers(15000, 25000) });
+    const assignedPort = await getPort({ port: portNumbers(9500, 19999) });
     const envVars = await getProjectEnvVars(project.id);
     const containerName = `paas-${project.slug}-${deployment.id.slice(0, 8)}`;
 
