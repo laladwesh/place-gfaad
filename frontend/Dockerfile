@@ -1,8 +1,10 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-COPY . .
-RUN npm install
+COPY package*.json ./
+COPY tsconfig.base.json ./
+COPY frontend ./frontend
+RUN npm ci
 RUN npm run build --workspace frontend
 
 FROM node:20-alpine AS runtime
