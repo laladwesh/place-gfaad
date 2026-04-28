@@ -9,9 +9,9 @@ COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
 RUN npm ci
-RUN npm run build --workspace utils
-RUN npm run build --workspace nginx
-RUN npm run build --workspace worker
+RUN export PATH=/app/node_modules/.bin:$PATH && npm run build --workspace utils
+RUN export PATH=/app/node_modules/.bin:$PATH && npm run build --workspace nginx
+RUN export PATH=/app/node_modules/.bin:$PATH && npm run build --workspace worker
 
 FROM node:20-alpine AS runtime
 WORKDIR /app

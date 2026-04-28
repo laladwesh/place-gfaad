@@ -9,7 +9,7 @@ COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
 RUN npm ci
-RUN npm run build --workspace frontend
+RUN export PATH=/app/node_modules/.bin:$PATH && npm run build --workspace frontend
 
 FROM node:20-alpine AS runtime
 WORKDIR /app
