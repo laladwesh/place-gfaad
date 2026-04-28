@@ -1,5 +1,6 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
+ENV NODE_ENV=development
 
 COPY package*.json ./
 COPY tsconfig.base.json ./
@@ -8,7 +9,7 @@ COPY backend ./backend
 COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
-RUN npm install --include=dev
+RUN npm install
 RUN ./node_modules/typescript/bin/tsc -p utils/tsconfig.json
 RUN ./node_modules/next/dist/bin/next build
 
