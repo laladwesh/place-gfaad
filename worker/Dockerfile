@@ -8,7 +8,7 @@ COPY backend ./backend
 COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
-RUN npm install
+RUN npm install --include=dev
 RUN ./node_modules/typescript/bin/tsc -p utils/tsconfig.json
 RUN ./node_modules/typescript/bin/tsc -p nginx/tsconfig.json
 RUN ./node_modules/typescript/bin/tsc -p worker/tsconfig.json
