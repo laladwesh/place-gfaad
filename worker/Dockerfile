@@ -8,11 +8,11 @@ COPY backend ./backend
 COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
-RUN npm install
-ENV PATH=/app/node_modules/.bin:$PATH
-RUN npm run build --workspace utils
-RUN npm run build --workspace nginx
-RUN npm run build --workspace worker
+RUN npm install && \
+    export PATH=/app/node_modules/.bin:$PATH && \
+    npm run build --workspace utils && \
+    npm run build --workspace nginx && \
+    npm run build --workspace worker
 
 FROM node:20-alpine AS runtime
 WORKDIR /app
