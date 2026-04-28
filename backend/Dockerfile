@@ -8,9 +8,7 @@ COPY backend ./backend
 COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
-RUN npm ci
-RUN export PATH=/app/node_modules/.bin:$PATH && npm run build --workspace utils
-RUN export PATH=/app/node_modules/.bin:$PATH && npm run build --workspace backend
+RUN npm ci && npx tsc -p utils/tsconfig.json && npx tsc -p backend/tsconfig.json
 
 FROM node:20-alpine AS runtime
 WORKDIR /app
