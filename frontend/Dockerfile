@@ -8,9 +8,8 @@ COPY backend ./backend
 COPY worker ./worker
 COPY nginx ./nginx
 COPY utils ./utils
-RUN npm install && \
-    export PATH=/app/node_modules/.bin:$PATH && \
-    npm run build --workspace frontend
+RUN npm install
+RUN cd frontend && npx next build
 
 FROM node:20-alpine AS runtime
 WORKDIR /app
