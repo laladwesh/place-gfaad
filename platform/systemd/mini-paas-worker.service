@@ -1,0 +1,18 @@
+[Unit]
+Description=Mini PaaS Worker (BullMQ deploy engine)
+After=network.target redis-server.service mongod.service docker.service
+Wants=redis-server.service docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/ubuntu/mini-paas
+EnvironmentFile=/home/ubuntu/mini-paas/.env
+ExecStart=/usr/bin/npm run start --workspace worker
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

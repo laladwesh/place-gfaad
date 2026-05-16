@@ -1,0 +1,19 @@
+[Unit]
+Description=Mini PaaS Frontend (Next.js)
+After=network.target mini-paas-backend.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/mini-paas
+EnvironmentFile=/home/ubuntu/mini-paas/.env
+# EnvironmentFile= would override Environment= (PORT=6001 from .env wins).
+# Use /usr/bin/env to force PORT=6002 at exec time, beating the file.
+ExecStart=/usr/bin/env PORT=6002 /usr/bin/npm run start --workspace frontend
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

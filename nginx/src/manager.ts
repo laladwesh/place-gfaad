@@ -47,9 +47,25 @@ function validatePort(value: number): number {
 
 export function renderNginxConfig(subdomain: string, rootDomain: string, port: number): string {
   const host = `${subdomain}.${rootDomain}`;
-  return `server {
+  const certPath = process.env.PROJECT_TLS_CERT ?? `/etc/letsencrypt/live/apps-wildcard/fullchain.pem`;
+  const keyPath = process.env.PROJECT_TLS_KEY ?? `/etc/letsencrypt/live/apps-wildcard/privkey.pem`;
+
+  return `# HTTP -> HTTPS redirect
+server {
     listen 80;
     server_name ${host};
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS reverse proxy to user project container
+server {
+    listen 443 ssl http2;
+    server_name ${host};
+
+    ssl_certificate ${certPath};
+    ssl_certificate_key ${keyPath};
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
 
     location / {
         proxy_pass http://127.0.0.1:${port};
@@ -57,8 +73,10 @@ export function renderNginxConfig(subdomain: string, rootDomain: string, port: n
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 300s;
     }
 }
 `;

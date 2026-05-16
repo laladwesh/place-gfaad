@@ -1,0 +1,18 @@
+[Unit]
+Description=Mini PaaS Backend (Express API)
+After=network.target redis-server.service mongod.service
+Wants=redis-server.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/mini-paas
+EnvironmentFile=/home/ubuntu/mini-paas/.env
+ExecStart=/usr/bin/npm run start --workspace backend
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
